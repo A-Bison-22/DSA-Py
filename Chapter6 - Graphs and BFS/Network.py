@@ -47,7 +47,7 @@ def search(you:person,target:person):
             ### print("Found ! "," > ".join([p.name for p in path]))
             all_possible_paths+=[path]
         
-        if current_person not in visited: # this is why (we dont wanna recount people)
+        if current_person not in visited: # this is why line #38 (we dont wanna recount people)
             visited.append(current_person)
             
             for friend in current_person.friends: # add that persons friend to the search q 
