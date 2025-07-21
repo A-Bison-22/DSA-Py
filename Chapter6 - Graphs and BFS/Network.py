@@ -20,7 +20,7 @@ class person:
     
 # Second degree connections
 peggy=person("peggy",[])
-anuj=person("anuj",[])
+anuj=person("anuj",[])                                                                               # visual : https://postimg.cc/yDqSSq5f
 thom=person("thom",[])
 jonny=person("jonny",[])
 
