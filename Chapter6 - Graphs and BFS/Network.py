@@ -5,6 +5,7 @@ the main thing i wanted to do is not only test my OOP but also try my hand on BF
 reading the psuedocode
 
 """
+# This model is based on every person having a unique name, add a unique parameter ID if you want to match it to your requirements
 class person:
     def __init__(self,name:str,friends: list):
 
