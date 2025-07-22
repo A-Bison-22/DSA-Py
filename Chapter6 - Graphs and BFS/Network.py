@@ -34,18 +34,19 @@ claire=Person("claire",[thom,jonny])
 # you
 you=Person("you",[bob,alice,claire])
                                     # this thing below me in case you want the full ugly class output
-def search(you:Person,target:Person,OnlyPrintNames=True):                                                             # the more you know the more you know that you dont know shit
+def search(you:Person,target:Person,OnlyPrintNames=True):                                                                            # the more you know the more you know that you dont know shit
     #make a list of 1st deg connections
     search_q=[(i,[you,i]) for i in you.friends]
     # make a visited lists so we dont double count
     visited=[you]
     min_len=float('inf')
+    smallest_path=[]
     while len(search_q)>0:
         #remove and check element 0 as tuple ( xx , xx )
         #who the current person of interest is and add the said person's name to current path 
         current_person,path=search_q.pop(0)
 
-        if current_person.name==target.name: #change to person id in the future                   
+        if current_person.name==target.name: #change to person id in the future
             ### print("Found ! "," > ".join([p.name for p in path]))
             if len(path) < min_len:
                 smallest_path=path
@@ -57,9 +58,14 @@ def search(you:Person,target:Person,OnlyPrintNames=True):                       
             for friend in current_person.friends: # add that persons friend to the search q 
                 if friend not in visited:
                     search_q.append((friend,path+[friend]))
+    if not smallest_path:
+        return []
     if OnlyPrintNames:
         return [i.name for i in smallest_path]
     else:
         return smallest_path
 
+lonely=Person("im very lonley",[])
+print(search(peggy,lonely))
+print(search(peggy,thom))
 print(search(peggy,thom))
