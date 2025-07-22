@@ -6,61 +6,59 @@ reading the psuedocode
 
 """
 # This model is based on every person having a unique name, add a unique parameter ID if you want to match it to your requirements
-class person:
+class Person:
     def __init__(self,name:str,friends: list):
 
         for i in friends:
-            if type(i)!= person:
-                raise TypeError ("All friends must be of type person, not "+str(type(i)))
+            if type(i)!= Person:
+                raise TypeError ("All friends must be of type Person, not "+str(type(i)))
         
         self.name=name
         self.friends=friends
 
-        for i in self.friends: #make sure that i am my friends' friend
+        for i in self.friends:
             i.friends.append(self)
     
 # Second degree connections
-peggy=person("peggy",[])
-anuj=person("anuj",[])                                                                               # visual : https://postimg.cc/yDqSSq5f
-thom=person("thom",[])
-jonny=person("jonny",[])
+peggy=Person("peggy",[])
+anuj=Person("anuj",[])
+thom=Person("thom",[])
+jonny=Person("jonny",[])
 
 # first degree connections
-alice=person("alice",[peggy])
-bob=person("bob",[anuj,peggy])
-claire=person("claire",[thom,jonny])
+alice=Person("alice",[peggy])
+bob=Person("bob",[anuj,peggy])
+claire=Person("claire",[thom,jonny])
 
 # you
-you=person("you",[bob,alice,claire])
+you=Person("you",[bob,alice,claire])
 
-def search(you:person,target:person):
-    #make a list of 1st deg connections                                                                # the more you know the more you know that you dont know shit
+def search(you:Person,target:Person,OnlyPrintNames=True):
+    #make a list of 1st deg connections
     search_q=[(i,[you,i]) for i in you.friends]
     # make a visited lists so we dont double count
     visited=[you]
-    all_possible_paths=[]
+    min_len=float('inf')
     while len(search_q)>0:
         #remove and check element 0 as tuple ( xx , xx )
-        #who the current person of interests is and add the said person's name to current path 
+        #who the current person of interest is and add the said person's name to current path 
         current_person,path=search_q.pop(0)
 
-        if current_person==target:
+        if current_person.name==target.name: #change to person id in the future
             ### print("Found ! "," > ".join([p.name for p in path]))
-            all_possible_paths+=[path]
+            if len(path) < min_len:
+                smallest_path=path
+                min_len=len(path)
         
-        if current_person not in visited: # this is why line #38 (we dont wanna recount people)
+        if current_person not in visited: # this is why (we dont wanna recount people)
             visited.append(current_person)
             
             for friend in current_person.friends: # add that persons friend to the search q 
                 if friend not in visited:
                     search_q.append((friend,path+[friend]))
-
-    min_len=float("inf")
-    smallest_path=[]
-    for i in all_possible_paths:
-        if len(i)<min_len:
-            min_len=len(i)
-            smallest_path=i
-    return [i.name for i in smallest_path]
+    if OnlyPrintNames:
+        return [i.name for i in smallest_path]
+    else:
+        return smallest_path
 
 print(search(peggy,thom))
