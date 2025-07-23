@@ -1,5 +1,5 @@
 from random import randint
-from random import shuffle
+
 #lets take 5 random cities' coordinates
 cities=[[1,2],[3,4],[4,3],[2,1],[12,5],[1,1]] # and of course, this list is ordered
 # the problem asks us, in what order should we visit the cities so as to cover the minimum distance
@@ -29,16 +29,43 @@ def returnListDist(L):
     dist += ((start[0] - L[-1][0])**2 + (start[1] - L[-1][1])**2)**0.5
     return dist
 
-#then we create the list randomiser
-def returnListIterations(L):
-    if len(L) == 0:
-        return [[]]
-    result = []
-    for i in range(len(L)):
-        rest = L[:i] + L[i+1:]
-        for p in returnListIterations(rest):            # Borrowed from ChatGPT, need to make own
-            result.append([L[i]] + p)
-    return result
+# #then we create the list randomiser
+# def returnListIterations(L):
+#     if len(L) == 0:
+#         return [[]]
+#     result = []
+#     for i in range(len(L)):
+#         rest = L[:i] + L[i+1:]
+#         for p in returnListIterations(rest):            # Borrowed from ChatGPT, need to make own (created own, look below) 23-07-25 (didn't have anything else to do)
+#             result.append([L[i]] + p)
+#     return result
+
+
+def returnListIterations(L:list):    
+    created_iterations=[]
+
+    prod=1
+    for i in range(1,len(L)+1):                          # local factorial deriver
+        prod = prod * i
+ 
+    while len(created_iterations) < prod:                   # max number of permutations of n unique indices=  n!
+        random_sub_list=[]
+        visited_idx=[]
+        
+        while len(random_sub_list) != len(L):            # to make sure all elements are used
+            element_idx=randint(0,len(L)-1)
+
+            if element_idx not in visited_idx:
+                random_sub_list.append(L[element_idx])
+                visited_idx.append(element_idx)
+            else:           # idk what this does
+                continue
+        
+        if random_sub_list not in created_iterations:
+            created_iterations.append(random_sub_list)
+
+    return created_iterations
+
 
 # finally
 def SalesmanTravels(L):
