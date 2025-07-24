@@ -60,3 +60,5 @@ def returnDirFiles(F:folder,iHave2returnObject=False):
     
     return [i.name for i in files_found]
 print(returnDirFiles(pics))            
+
+#sorry im in pajamas but i just got off the pjs
