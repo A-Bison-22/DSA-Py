@@ -20,6 +20,8 @@ class file:
         self.name =name
 
 
+#hello hello hello hello white america assassinate my character
+#money matrimony yeah they trynna break the marriage up
 
 a=file("a.png")
 space=file("space.png")
