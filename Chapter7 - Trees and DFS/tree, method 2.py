@@ -18,11 +18,12 @@ but in the recursive method it is:
 simple explanation, in the first bfs-like method, we prioritise on the file input,
 we just add the folders to the search q and wait for python to do it's thing
 so, from <pics>, python takes out odyssey first, while putting f2001 in the uhhhhhhh
-search q, and when it gets to that, it outputs a and space
+search q, and when it gets to that, it outputs a and space 
+                                                                                                    This act of prioritising the files over the folders can be thought of as walking along the breadth of a graph, hence BFS 
 
 but in the recursive bit, the code prioritises exploring the folders first. Hence, 
 when it sees the folder <f2001> popping up in <pics>, it doesn't care for the 
 adjacent file, it goes in and prints out the inner files a and space, comes back 
 from the call stack and then looks over to the next content.
-
+                                                                                                    So, in contrast to the first Method, we do not care for adjacent elements and instead just love to dive deeper, hence {D}FS.
 """
